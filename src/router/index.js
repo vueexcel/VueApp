@@ -6,6 +6,7 @@ import AddNewTeam from './../pages/AddNewTeam'
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history', // to remove # from URL
     routes: [
         {
             path: '/',
