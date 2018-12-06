@@ -9,8 +9,9 @@ import router from './router'
 
 Vue.use(BootstrapVue); //bootstrapVUE
 
+
 Vue.config.productionTip = false
-firebaseService.init();
+firebaseService.init(); //initialise firebase
 
 new Vue({
   render: h => h(App),
