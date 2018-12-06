@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   name: "Home",
   data () {
@@ -47,10 +48,20 @@ export default {
       if(!this.email || !this.password){
         return
       } 
-      this.firebaseAuth.signInWithEmailAndPassword(this.email, this.password).then(res => {
-    // eslint-disable-next-line
-        console.log(res, '0000000000000000000000')
+     return firebase
+      .auth()
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then((data) => {
+          firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password).then ((resp) => {
+            console.log(resp, data)
+          });
+          // eslint-disable-next-line
       })
+      .catch(function(err) {
+        console.log("error", err);
+      });
     }
   }
 };
