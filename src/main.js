@@ -3,8 +3,9 @@ import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue' //bootstrapVUE
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import store from './store/modules/store' //vuex store
-import firebaseService from "./scripts/firebase.service"; //firebase services
+import firebaseService from "./scripts/firebase.service";
+import router from './router'
+
 
 Vue.use(BootstrapVue); //bootstrapVUE
 
@@ -14,5 +15,5 @@ firebaseService.init(); //initialise firebase
 
 new Vue({
   render: h => h(App),
-  store //vuex store
+  router,
 }).$mount('#app')
