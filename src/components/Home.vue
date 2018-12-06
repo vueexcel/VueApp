@@ -1,5 +1,5 @@
 <template>
-  <div class="mobileView mx-auto" >      
+  <div class="mobileView mx-auto" > 
     <!-- nav -->
     <b-nav class="bglightGray border-bottom" >
       <!-- <b-nav-item class="mx-auto" >Admin Panel</b-nav-item> -->
@@ -8,6 +8,17 @@
       <!-- <span class="mx-auto text-dark align-middle" >Admin Panel</span> -->
     </b-nav>
     <!-- nav ends -->
+
+            <!-- alert -->
+    <b-container>
+      <b-alert variant="danger"
+              dismissible
+              :show="showDismissibleAlert"
+              @dismissed="showDismissibleAlert=false">
+        Invalid UserName or Password
+      </b-alert>
+    </b-container>
+    <!-- alert ends --> 
 
     <b-container class="mx-auto my-3" >
       <p class="fontSmall" >all designs of the app will be mobile first i.e., 
@@ -29,39 +40,37 @@
       </b-form>
     </b-container>
     <!-- form ends -->
-
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
+import loginService from "./../services/login.service.js";
+import { sync, get } from "vuex-pathify"; //pathify
 export default {
   name: "Home",
-  data () {
-    return {
-      email: '',
-      password: ''
-    }
+  computed: {
+    email: sync('email'),
+    password: sync('password'),
+    showDismissibleAlert: sync('showDismissibleAlert')
   },
   methods: {
     login () {
       if(!this.email || !this.password){
         return
       } 
-     return firebase
-      .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then((data) => {
-          firebase
-          .auth()
-          .signInWithEmailAndPassword(this.email, this.password).then ((resp) => {
-            console.log(resp, data)
-          });
-          // eslint-disable-next-line
+      loginService.login(this.email, this.password).then(data => {
+        console.log(data, 'from login service')
+        if(data.message) {
+          // alert (data.message)
+          this.showDismissibleAlert = true
+        } else if(!data.message) {
+          alert ('login success')
+        }
+      }).catch(function(err){
+        console.log(err)        
       })
-      .catch(function(err) {
-        console.log("error", err);
-      });
+
     }
   }
 };
@@ -98,7 +107,7 @@ a {
 }
 .mobileView {
   width: 425px;
-  height: 100vh;
+  height: 800px;
   box-shadow: 5px 10px 18px #888888;
 }
 .adminFontWeight {
