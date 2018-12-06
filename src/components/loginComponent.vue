@@ -36,7 +36,7 @@
 <script>
 import firebase from "firebase";
 export default {
-  name: "Home",
+  name: "loginComponent",
   data () {
     return {
       email: '',
