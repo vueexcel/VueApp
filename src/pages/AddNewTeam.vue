@@ -33,23 +33,23 @@
       <b-form>
           <div class="d-flex border">
             <span class="p-2 w-50" >Name</span>
-            <b-input class="custom-search-field" />
+            <b-input v-model="name" class="custom-search-field" />
           </div>
           <div class="d-flex border-left border-right">
             <span class="p-2 w-50" >Email ID</span>
-            <b-input class="custom-search-field" />
+            <b-input v-model="email" type="email" class="custom-search-field" />
           </div>
           <div class="d-flex border">
             <span class="p-2 w-50" >Phone No</span>
-            <b-input class="custom-search-field" />
+            <b-input v-model="phone" type="number" class="custom-search-field" />
           </div>
           <div class="d-flex border-left border-right">
             <span class="p-2 w-50" >Agreed Rate</span>
-            <b-input class="custom-search-field" />
+            <b-input v-model="agreedRate" type="number" class="custom-search-field" />
           </div>
           <div class="d-flex border-left border-right border-top">
             <span class="p-2 w-75" >Number of Seats</span>
-            <b-input class="custom-search-field" />
+            <b-input v-model="numberOfSeats" type="number" class="custom-search-field" />
           </div>
           <div class="d-flex border">
             <span class="p-2 w-100" >Plan</span>
@@ -65,47 +65,47 @@
 
         <div class="d-flex border">
            <span class="p-2 w-50" >Company Name</span>
-           <b-input class="custom-search-field" />
+           <b-input  v-model="companyName" class="custom-search-field" />
         </div>
         <div class="d-flex border-left border-right">
            <span class="p-2 w-50" >Pan</span>
-           <b-input class="custom-search-field" />
+           <b-input  v-model="pan" class="custom-search-field" />
         </div>
         <div class="d-flex border">
            <span class="p-2 w-100" >Aadhar Card/Id Proof No</span>
-           <b-input class="custom-search-field" />
+           <b-input v-model="idProof" type="number" class="custom-search-field" />
         </div>
         <div class="d-flex border-left border-right">
            <span class="p-2 w-50" >Address</span>
-           <b-input class="custom-search-field" />
+           <b-input v-model="address" class="custom-search-field" />
         </div>
         <div class="d-flex border">
            <span class="p-2 w-100" >Date of Commencemet</span>
-           <b-input class="custom-search-field" />
+           <b-input  v-model="dateOfCommencemet" type="date" class="custom-search-field" />
         </div> 
         <div class="d-flex border-left border-right">
            <span class="p-2 w-50" >Duration</span>
-           <b-input class="custom-search-field" />
+           <b-input v-model="duration" type="number" class="custom-search-field" />
         </div> 
         <div class="d-flex border">
            <span class="p-2 w-50" >Seats Assigned</span>
-           <b-input class="custom-search-field" />
+           <b-input v-model="seatsAssigned" type="number" class="custom-search-field" />
         </div> 
         <div class="d-flex border-left border-right">
            <span class="p-2 w-50" >Working Hours</span>
-           <b-input class="custom-search-field" />
+           <b-input v-model="workingHours" type="number" class="custom-search-field" />
         </div> 
         <div class="d-flex border">
            <span class="p-2 w-75" >Existing Members</span>
            <!-- <b-input class="custom-search-field" /> -->
            <label class="switch">
-                <input type="checkbox">
+                <input v-model="existingMember" type="checkbox">
                 <span class="slider round"></span>
            </label>
         </div> &nbsp;
 
         <div class="text-center" >
-        <b-button variant="primary" class="text-center btnWidth btn-lg">Submit</b-button>
+        <b-button variant="primary" class="text-center btnWidth btn-lg" @click="submitAddNewTeam" >Submit</b-button>
         </div>
       </b-form>
     </b-container>
@@ -114,12 +114,39 @@
 </template>
 
 <script>
-import {sync} from 'vuex-pathify'
+import addNewTeamService from "./../services/addNewTeam.service.js";
+import {sync, get} from 'vuex-pathify'
 export default {
     name: 'AddNewTeam',
     computed: {
-        selected: sync('selected'),
-        options: sync('options'),
+        selected: sync('selected'), //input field PLAN
+        options: sync('options'), //input field PLAN
+        // form fields
+        name: sync('form@name'),
+        email: sync('form@email'),
+        phone: sync('form@phone'),
+        agreedRate: sync('form@agreedRate'),
+        numberOfSeats: sync('form@numberOfSeats'),
+        // optional Fields
+        companyName: sync('form@companyName'),
+        pan: sync('form@pan'),
+        idProof: sync('form@idProof'),
+        address: sync('form@address'),
+        dateOfCommencemet: sync('form@dateOfCommencemet'),
+        duration: sync('form@duration'),
+        seatsAssigned: sync('form@seatsAssigned'),
+        workingHours: sync('form@workingHours'),
+        existingMember: sync('form@existingMember'), //checkbox
+        formData: get('form') //formData 
+    },
+    methods: {
+      submitAddNewTeam() {
+        if (!this.name || !this.email || !this.phone || !this.agreedRate || !this.numberOfSeats) {
+          alert('first five fields are mandatory')
+        } else {
+          let response = addNewTeamService.addNew(this.formData)
+        } 
+      }
     }
 }
 </script>

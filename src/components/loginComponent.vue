@@ -1,47 +1,44 @@
 <template>
-  <div class="mobileView mx-auto" > 
+  <div class="mobileView mx-auto">
     <!-- nav -->
-    <b-nav class="bglightGray border-bottom" >
+    <b-nav class="bglightGray border-bottom">
       <!-- <b-nav-item class="mx-auto" >Admin Panel</b-nav-item> -->
       <!-- <b-nav-text class="mx-auto text-dark" >Admin Panel<b-nav-text> -->
-      <p class="mx-auto text-dark mt-2 mb-2 adminFontWeight" >Admin Login</p>
+      <p class="mx-auto text-dark mt-2 mb-2 adminFontWeight">Admin Login</p>
       <!-- <span class="mx-auto text-dark align-middle" >Admin Panel</span> -->
     </b-nav>
     <!-- nav ends -->
-
-            <!-- alert -->
+    <!-- alert -->
     <b-container>
-      <b-alert variant="danger"
-              dismissible
-              :show="showDismissibleAlert"
-              @dismissed="showDismissibleAlert=false">
-        Invalid UserName or Password
-      </b-alert>
+      <b-alert
+        variant="danger"
+        dismissible
+        :show="showDismissibleAlert"
+        @dismissed="showDismissibleAlert=false"
+      >Invalid UserName or Password</b-alert>
     </b-container>
-    <!-- alert ends --> 
-
-    <!-- <b-container class="mx-auto my-3" >
-      <p class="fontSmall" >all designs of the app will be mobile first i.e., 
-        we will design for mobile first then table then website.<br><br>
-      i expect 70% of people using this on mobile
-      </p>  
-    </b-container> -->
-
+    <!-- alert ends -->
     <!-- form -->
     <b-container style="margin-top: 100px;">
-      <div class="text-center" ><p class="fontMedium" >Login</p></div>
+      <div class="text-center">
+        <p class="fontMedium">Login</p>
+      </div>
       <b-form>
-        <div class="input">
-          <span class="username">Username</span>
-          <b-input type="text" class="mr-sm-2 form-control-lg username-input" id="inlineFormInputName2" v-model="email" />
+        <div class="d-flex border">
+          <span class="p-2 w-50">Name</span>
+          <b-input class="custom-search-field" type="text" v-model="email"/>
         </div>
-        <div class="input">
-          <span class="username">Password</span>
-          <b-input type="password" class=" mr-sm-2 form-control-lg username-input" v-model="password" /> <br>
+        <div class="d-flex border">
+          <span class="p-2 w-50">Password</span>
+          <b-input class="custom-search-field" type="password" v-model="password"/>
         </div>
-        <div class="text-center button" >
-        <b-button variant="primary" class="text-center btnWidth btn-lg submit" @click="login" >Submit</b-button>
-        <b-button variant="link" class="text-center btnWidth btn-lg reset" >Reset Password</b-button>
+        <div class="text-center button">
+          <b-button
+            variant="primary"
+            class="text-center btnWidth btn-lg submit"
+            @click="login"
+          >Submit</b-button>
+          <b-button variant="link" class="text-center btnWidth btn-lg reset">Reset Password</b-button>
         </div>
       </b-form>
     </b-container>
@@ -55,31 +52,28 @@ import { sync } from "vuex-pathify"; //pathify
 export default {
   name: "Home",
   computed: {
-    email: sync('email'),
-    password: sync('password'),
-    showDismissibleAlert: sync('showDismissibleAlert')
+    email: sync("email"),
+    password: sync("password"),
+    showDismissibleAlert: sync("showDismissibleAlert")
   },
   methods: {
-    login () {
-      // console.log(process.env)
-      if(!this.email || !this.password){
-        return
-      } 
-      loginService.login(this.email, this.password).then(data => {
-        if(data.message) {
-          this.showDismissibleAlert = true
-        } else if(!data.message) {
-          console.log(data)
-          if (data.user.uid === process.env.VUE_APP_ADMIN_ID) {
-            
-            this.$router.push('/addnewteam')
+    login() {
+      if (!this.email || !this.password) {
+        return;
+      }
+      loginService
+        .login(this.email, this.password)
+        .then(data => {
+          if (data.message) {
+            this.showDismissibleAlert = true;
+          } else if (!data.message) {
+            if (data.user.uid === process.env.VUE_APP_ADMIN_ID) {
+              this.$router.push("/addnewteam");
+              (this.email = null), (this.password = null);
+            }
           }
-        }
-      }).catch(function(err){
-        // eslint-disable-next-line
-        console.log(err)        
-      })
-
+        })
+        .catch(function(err) {});
     }
   }
 };
@@ -87,25 +81,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.input{
-  display: flex;
-  border: 1px solid #ced4da;
-  border-radius: 3px;
-}
-.username{
-  margin-top: 8px;
-  font-size: 15px;
-  padding: 8px;
-}
-.username-input{
+/* for input fields */
+.custom-search-field:focus,
+.custom-search-field {
   border: none;
-  font-size: 15px;
+  color: #495057;
+  background-color: #ffffff;
+  border-color: rgba(248, 249, 250, 0);
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0);
 }
-.button{
+/* for input fields ends */
+
+.button {
   margin-top: 20px;
 }
 .bglightGray {
-  background: #F8F8F8;
+  background: #f8f8f8;
 }
 .fontSmall {
   font-size: 14px;
@@ -125,15 +118,15 @@ export default {
 .adminFontWeight {
   font-weight: 600;
 }
-.container{
+.container {
   margin-top: 30px;
 }
-.submit{
+.submit {
   background-color: #387ef5;
   font-size: 16px;
   border-radius: 3px;
 }
-.reset{
+.reset {
   font-size: 10px;
   margin-top: 20px;
   color: #b2b2b2;
