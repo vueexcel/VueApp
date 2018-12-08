@@ -1,111 +1,90 @@
 <template>
-    <div class="mobileView mx-auto" > 
+  <div class="mobileView mx-auto">
     <!-- nav -->
-    <b-nav class="bglightGray border-bottom" >
-
-      <div class="d-flex" >
-          <router-link to="/">
-            <p class="mx-auto text-dark mt-2 mb-2" >
-                <i class="fas fa-chevron-left"></i>
-                Admin Login
-            </p>
-          </router-link>
-          <span class="mx-auto text-dark mt-2 mb-2 pl-5 adminFontWeight" >Add New Team</span>
+    <b-nav class="bglightGray border-bottom">
+      <div class="d-flex">
+        <router-link to="/">
+          <p class="mx-auto text-dark mt-2 mb-2">
+            <i class="fas fa-chevron-left"></i>
+            Admin Login
+          </p>
+        </router-link>
+        <span class="mx-auto text-dark mt-2 mb-2 pl-5 adminFontWeight">Add New Team</span>
       </div>
     </b-nav>
     <!-- nav ends -->
-
-    <b-container class="mx-auto my-3" >
-      <p class="fontSmall" > This page is for coworking admin to add new teams.<br>
-      Add stage we will only add Manager of the coworking space <br>
-      These terms are important
-      <ol>
-          <li>admin is the coworking owner</li>
-          <li>client/team is the person taking coworking</li>
-          <li>manager is the coworking staff</li>
-      </ol>
-      </p>  
-    </b-container>
-
     <!-- form -->
-    <b-container >
-      <div><p class="fontMedium" >Add Team</p></div>
-      <b-form>
-          <div class="d-flex border">
-            <span class="p-2 w-50" >Name</span>
-            <b-input v-model="name" class="custom-search-field" />
-          </div>
-          <div class="d-flex border-left border-right">
-            <span class="p-2 w-50" >Email ID</span>
-            <b-input v-model="email" type="email" class="custom-search-field" />
-          </div>
-          <div class="d-flex border">
-            <span class="p-2 w-50" >Phone No</span>
-            <b-input v-model="phone" type="number" class="custom-search-field" />
-          </div>
-          <div class="d-flex border-left border-right">
-            <span class="p-2 w-50" >Agreed Rate</span>
-            <b-input v-model="agreedRate" type="number" class="custom-search-field" />
-          </div>
-          <div class="d-flex border-left border-right border-top">
-            <span class="p-2 w-75" >Number of Seats</span>
-            <b-input v-model="numberOfSeats" type="number" class="custom-search-field" />
-          </div>
-          <div class="d-flex border">
-            <span class="p-2 w-100" >Plan</span>
-            <!-- <b-input class="custom-search-field" /> -->
-            <b-form-select v-model="selected" :options="options" class="custom-search-field" /> &nbsp;
-          </div>
-        
-         
-        <p class="mt-5" >optional fields.<br>
-            these can either filled by cowork admin <br>
-            or client
-        </p>
+    <b-container>
+      <div>
+        <p class="fontMedium">Add Team</p>
+      </div>
+      <b-form @submit.prevent="submitAddNewTeam">
+        <div class="d-flex border">
+          <span class="p-2 w-50">Name</span>
+          <b-input v-model="name" class="custom-search-field"/>
+        </div>
+        <div class="d-flex border-left border-right">
+          <span class="p-2 w-50">Email ID</span>
+          <b-input v-model="email" type="email" class="custom-search-field"/>
+        </div>
+        <div class="d-flex border">
+          <span class="p-2 w-50">Phone No</span>
+          <b-input v-model="phone" type="number" class="custom-search-field"/>
+        </div>
+        <div class="d-flex border-left border-right">
+          <span class="p-2 w-50">Agreed Rate</span>
+          <b-input v-model="agreedRate" type="number" class="custom-search-field"/>
+        </div>
+        <div class="d-flex border-left border-right border-top">
+          <span class="p-2 w-75">Number of Seats</span>
+          <b-input v-model="numberOfSeats" type="number" class="custom-search-field"/>
+        </div>
+        <div class="d-flex border">
+          <span class="p-2 w-100">Plan</span>
+          <b-form-select v-model="selected" :options="options" class="custom-search-field"/>&nbsp;
+        </div>
 
         <div class="d-flex border">
-           <span class="p-2 w-50" >Company Name</span>
-           <b-input  v-model="companyName" class="custom-search-field" />
+          <span class="p-2 w-50">Company Name</span>
+          <b-input v-model="companyName" class="custom-search-field"/>
         </div>
         <div class="d-flex border-left border-right">
-           <span class="p-2 w-50" >Pan</span>
-           <b-input  v-model="pan" class="custom-search-field" />
+          <span class="p-2 w-50">Pan</span>
+          <b-input v-model="pan" class="custom-search-field"/>
         </div>
         <div class="d-flex border">
-           <span class="p-2 w-100" >Aadhar Card/Id Proof No</span>
-           <b-input v-model="idProof" type="number" class="custom-search-field" />
+          <span class="p-2 w-100">Aadhar Card/Id Proof No</span>
+          <b-input v-model="idProof" type="number" class="custom-search-field"/>
         </div>
         <div class="d-flex border-left border-right">
-           <span class="p-2 w-50" >Address</span>
-           <b-input v-model="address" class="custom-search-field" />
+          <span class="p-2 w-50">Address</span>
+          <b-input v-model="address" class="custom-search-field"/>
         </div>
         <div class="d-flex border">
-           <span class="p-2 w-100" >Date of Commencemet</span>
-           <b-input  v-model="dateOfCommencemet" type="date" class="custom-search-field" />
-        </div> 
+          <span class="p-2 w-100">Date of Commencemet</span>
+          <b-input v-model="dateOfCommencemet" type="date" class="custom-search-field"/>
+        </div>
         <div class="d-flex border-left border-right">
-           <span class="p-2 w-50" >Duration</span>
-           <b-input v-model="duration" type="number" class="custom-search-field" />
-        </div> 
+          <span class="p-2 w-50">Duration</span>
+          <b-input v-model="duration" type="number" class="custom-search-field"/>
+        </div>
         <div class="d-flex border">
-           <span class="p-2 w-50" >Seats Assigned</span>
-           <b-input v-model="seatsAssigned" type="number" class="custom-search-field" />
-        </div> 
+          <span class="p-2 w-50">Seats Assigned</span>
+          <b-input v-model="seatsAssigned" type="number" class="custom-search-field"/>
+        </div>
         <div class="d-flex border-left border-right">
-           <span class="p-2 w-50" >Working Hours</span>
-           <b-input v-model="workingHours" type="number" class="custom-search-field" />
-        </div> 
+          <span class="p-2 w-50">Working Hours</span>
+          <b-input v-model="workingHours" type="number" class="custom-search-field"/>
+        </div>
         <div class="d-flex border">
-           <span class="p-2 w-75" >Existing Members</span>
-           <!-- <b-input class="custom-search-field" /> -->
-           <label class="switch">
-                <input v-model="existingMember" type="checkbox">
-                <span class="slider round"></span>
-           </label>
-        </div> &nbsp;
-
-        <div class="text-center" >
-        <b-button variant="primary" class="text-center btnWidth btn-lg" @click="submitAddNewTeam" >Submit</b-button>
+          <span class="p-2 w-75">Existing Members</span>
+          <label class="switch">
+            <input v-model="existingMember" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </div>&nbsp;
+        <div class="text-center">
+          <b-button variant="primary" class="text-center btnWidth btn-lg" type="submit">Submit</b-button>
         </div>
       </b-form>
     </b-container>
@@ -115,45 +94,51 @@
 
 <script>
 import addNewTeamService from "./../services/addNewTeam.service.js";
-import {sync, get} from 'vuex-pathify'
+import { sync, get } from "vuex-pathify";
 export default {
-    name: 'AddNewTeam',
-    computed: {
-        selected: sync('selected'), //input field PLAN
-        options: sync('options'), //input field PLAN
-        // form fields
-        name: sync('form@name'),
-        email: sync('form@email'),
-        phone: sync('form@phone'),
-        agreedRate: sync('form@agreedRate'),
-        numberOfSeats: sync('form@numberOfSeats'),
-        // optional Fields
-        companyName: sync('form@companyName'),
-        pan: sync('form@pan'),
-        idProof: sync('form@idProof'),
-        address: sync('form@address'),
-        dateOfCommencemet: sync('form@dateOfCommencemet'),
-        duration: sync('form@duration'),
-        seatsAssigned: sync('form@seatsAssigned'),
-        workingHours: sync('form@workingHours'),
-        existingMember: sync('form@existingMember'), //checkbox
-        formData: get('form') //formData 
-    },
-    methods: {
-      submitAddNewTeam() {
-        if (!this.name || !this.email || !this.phone || !this.agreedRate || !this.numberOfSeats) {
-          alert('first five fields are mandatory')
-        } else {
-          let response = addNewTeamService.addNew(this.formData)
-        } 
+  name: "AddNewTeam",
+  computed: {
+    selected: sync("addNewTeam/form@selected"), //input field PLAN
+    options: sync("addNewTeam/form@options"), //input field PLAN
+    // form fields
+    name: sync("addNewTeam/form@name"),
+    email: sync("addNewTeam/form@email"),
+    phone: sync("addNewTeam/form@phone"),
+    agreedRate: sync("addNewTeam/form@agreedRate"),
+    numberOfSeats: sync("addNewTeam/form@numberOfSeats"),
+    // optional Fields
+    companyName: sync("addNewTeam/form@companyName"),
+    pan: sync("addNewTeam/form@pan"),
+    idProof: sync("addNewTeam/form@idProof"),
+    address: sync("addNewTeam/form@address"),
+    dateOfCommencemet: sync("addNewTeam/form@dateOfCommencemet"),
+    duration: sync("addNewTeam/form@duration"),
+    seatsAssigned: sync("addNewTeam/form@seatsAssigned"),
+    workingHours: sync("addNewTeam/form@workingHours"),
+    existingMember: sync("addNewTeam/form@existingMember"), //checkbox
+    formData: get("addNewTeam/form") //formData
+  },
+  methods: {
+    submitAddNewTeam() {
+      if (
+        !this.name ||
+        !this.email ||
+        !this.phone ||
+        !this.agreedRate ||
+        !this.numberOfSeats
+      ) {
+        alert("first five fields are mandatory");
+      } else {
+        let response = addNewTeamService.addNew(this.formData);
       }
     }
-}
+  }
+};
 </script>
 
 <style>
 .bglightGray {
-  background: #F8F8F8;
+  background: #f8f8f8;
 }
 .fontSmall {
   font-size: 14px;
@@ -192,10 +177,10 @@ export default {
   display: inline-block;
   width: 60px;
   height: 34px;
-  margin-top: 7px;  
+  margin-top: 7px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -209,8 +194,8 @@ export default {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -221,16 +206,16 @@ export default {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -255,5 +240,4 @@ input:checked + .slider:before {
     box-shadow: none;
   }
 }
-
 </style>

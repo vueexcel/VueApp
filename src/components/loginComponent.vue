@@ -2,10 +2,7 @@
   <div class="mobileView mx-auto">
     <!-- nav -->
     <b-nav class="bglightGray border-bottom">
-      <!-- <b-nav-item class="mx-auto" >Admin Panel</b-nav-item> -->
-      <!-- <b-nav-text class="mx-auto text-dark" >Admin Panel<b-nav-text> -->
       <p class="mx-auto text-dark mt-2 mb-2 adminFontWeight">Admin Login</p>
-      <!-- <span class="mx-auto text-dark align-middle" >Admin Panel</span> -->
     </b-nav>
     <!-- nav ends -->
     <!-- alert -->
@@ -23,7 +20,7 @@
       <div class="text-center">
         <p class="fontMedium">Login</p>
       </div>
-      <b-form>
+      <b-form @submit.prevent="login">
         <div class="d-flex border">
           <span class="p-2 w-50">Name</span>
           <b-input class="custom-search-field" type="text" v-model="email"/>
@@ -34,9 +31,9 @@
         </div>
         <div class="text-center button">
           <b-button
+            type="submit"
             variant="primary"
             class="text-center btnWidth btn-lg submit"
-            @click="login"
           >Submit</b-button>
           <b-button variant="link" class="text-center btnWidth btn-lg reset">Reset Password</b-button>
         </div>
@@ -47,33 +44,24 @@
 </template>
 
 <script>
-import loginService from "./../services/login.service.js";
-import { sync } from "vuex-pathify"; //pathify
+import { sync, call } from "vuex-pathify"; 
 export default {
   name: "Home",
   computed: {
-    email: sync("email"),
-    password: sync("password"),
-    showDismissibleAlert: sync("showDismissibleAlert")
+    email: sync("adminLogin/email"),
+    password: sync("adminLogin/password"),
+    showDismissibleAlert: sync("adminLogin/showDismissibleAlert")
   },
   methods: {
+    login_: call('adminLogin/login'),
     login() {
       if (!this.email || !this.password) {
         return;
       }
-      loginService
-        .login(this.email, this.password)
-        .then(data => {
-          if (data.message) {
-            this.showDismissibleAlert = true;
-          } else if (!data.message) {
-            if (data.user.uid === process.env.VUE_APP_ADMIN_ID) {
-              this.$router.push("/addnewteam");
-              (this.email = null), (this.password = null);
-            }
-          }
-        })
-        .catch(function(err) {});
+      this.login_({
+        email: this.email,
+        password: this.password
+      })
     }
   }
 };

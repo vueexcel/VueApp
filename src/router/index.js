@@ -1,21 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './../pages/Login'
-import AddNewTeam from './../pages/AddNewTeam'
+import TeamNew from './../pages/AddNewTeam.vue'
 
 Vue.use(Router)
 
 export default new Router({
-    mode: 'history', // to remove # from URL
+    mode: 'history', 
     routes: [{
-            path: '/',
+            path: '',
             name: 'login',
             component: Login
         },
         {
-            path: '/addnewteam',
-            name: 'addnewteam',
-            component: AddNewTeam
+            path: '/teamNew',
+            name: 'teamNew',
+            component: TeamNew
         }
     ]
 })

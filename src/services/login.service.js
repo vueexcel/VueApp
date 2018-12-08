@@ -1,5 +1,4 @@
 import firebase from 'firebase'
-// import router from '@/router'
 export default {
   login(email, password) {
     return firebase
@@ -9,10 +8,10 @@ export default {
         return firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
-
       })
       .catch(function (err) {
         return err
       });
   }
+  
 }
