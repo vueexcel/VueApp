@@ -20,22 +20,28 @@
     </b-container>
     <!-- alert ends --> 
 
-    <b-container class="mx-auto my-3" >
+    <!-- <b-container class="mx-auto my-3" >
       <p class="fontSmall" >all designs of the app will be mobile first i.e., 
         we will design for mobile first then table then website.<br><br>
       i expect 70% of people using this on mobile
       </p>  
-    </b-container>
+    </b-container> -->
 
     <!-- form -->
-    <b-container >
+    <b-container style="margin-top: 100px;">
       <div class="text-center" ><p class="fontMedium" >Login</p></div>
       <b-form>
-        <b-input class="mb-2 mr-sm-2 mb-sm-0 form-control-lg" id="inlineFormInputName2" placeholder="UserName" v-model="email" />
-        <b-input class="mb-2 mr-sm-2 mb-sm-0 form-control-lg" placeholder="Password" v-model="password" /> <br>
-        <div class="text-center" >
-        <b-button variant="primary" class="text-center btnWidth btn-lg" @click="login" >Submit</b-button>
-        <b-button variant="link" class="text-center btnWidth btn-lg" >Reset Password</b-button>
+        <div class="input">
+          <span class="username">Username</span>
+          <b-input type="text" class="mr-sm-2 form-control-lg username-input" id="inlineFormInputName2" v-model="email" />
+        </div>
+        <div class="input">
+          <span class="username">Password</span>
+          <b-input type="password" class=" mr-sm-2 form-control-lg username-input" v-model="password" /> <br>
+        </div>
+        <div class="text-center button" >
+        <b-button variant="primary" class="text-center btnWidth btn-lg submit" @click="login" >Submit</b-button>
+        <b-button variant="link" class="text-center btnWidth btn-lg reset" >Reset Password</b-button>
         </div>
       </b-form>
     </b-container>
@@ -44,9 +50,8 @@
 </template>
 
 <script>
-import firebase from "firebase";
 import loginService from "./../services/login.service.js";
-import { sync, get } from "vuex-pathify"; //pathify
+import { sync } from "vuex-pathify"; //pathify
 export default {
   name: "Home",
   computed: {
@@ -56,18 +61,20 @@ export default {
   },
   methods: {
     login () {
+      // console.log(process.env)
       if(!this.email || !this.password){
         return
       } 
       loginService.login(this.email, this.password).then(data => {
-        console.log(data, 'from login service')
         if(data.message) {
-          // alert (data.message)
           this.showDismissibleAlert = true
         } else if(!data.message) {
-          alert ('login success')
+          if (data.user.uid === process.env.VUE_APP_ADMIN_ID) {
+            this.$router.push('/addnewteam')
+          }
         }
       }).catch(function(err){
+        // eslint-disable-next-line
         console.log(err)        
       })
 
@@ -78,20 +85,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* h3 {
-  margin: 40px 0 0;
+.input{
+  display: flex;
+  border: 1px solid #ced4da;
+  border-radius: 3px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.username{
+  margin-top: 8px;
+  font-size: 15px;
+  padding: 8px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.username-input{
+  border: none;
+  font-size: 15px;
 }
-a {
-  color: #42b983;
-} */
+.button{
+  margin-top: 20px;
+}
 .bglightGray {
   background: #F8F8F8;
 }
@@ -112,6 +122,19 @@ a {
 }
 .adminFontWeight {
   font-weight: 600;
+}
+.container{
+  margin-top: 30px;
+}
+.submit{
+  background-color: #387ef5;
+  font-size: 16px;
+  border-radius: 3px;
+}
+.reset{
+  font-size: 10px;
+  margin-top: 20px;
+  color: #b2b2b2;
 }
 /* media query */
 @media screen and (max-width: 425px) {
