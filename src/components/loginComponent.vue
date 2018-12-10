@@ -50,7 +50,7 @@ export default {
   computed: {
     email: sync("adminLogin/email"),
     password: sync("adminLogin/password"),
-    showDismissibleAlert: sync("adminLogin/showDismissibleAlert")
+    showDismissibleAlert: sync("adminLogin/showDismissibleAlert"),
   },
   methods: {
     login_: call('adminLogin/login'),
