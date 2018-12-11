@@ -18,18 +18,36 @@
       <div>
         <p class="fontMedium">Terms</p>
       </div>
-      <b-form @submit.prevent="submitAddNewTeam">
+      <b-form @submit.prevent>
         <div class="text-center">
-          <b-button variant="primary" class="text-center btnWidth btn-lg">Edit Details</b-button>
+          <b-button
+            variant="primary"
+            class="text-center btnWidth btn-lg"
+            @click="editDetails"
+          >Edit Details</b-button>
         </div>
 
-        <div class="image mt-3 mb-3" ></div>
+        <div class="image mt-3 mb-3">
+          <!-- <embed src="./../assets/samplecontract.pdf" type="application/pdf" height="300px" /> -->
+          <!-- <embed src="./../assets/samplecontract.pdf" type="application/pdf" width="100%" height="600px" /> -->
+          <!-- <vue-pdf-viewer height="300px" url="./../assets/test.pdf">
+          </vue-pdf-viewer>-->
+          <!-- <iframe src="./../assets/samplecontract.pdf" height="300px"></iframe> -->
+        </div>
 
         <div class="text-center">
           <b-button variant="primary" class="text-center btnWidth btn-lg">View Agreement</b-button>
         </div>
 
-        <div class="image mt-3 mb-3" ></div>
+        <div class="mt-4 mb-3">
+          <vueSignature ref="signature" :sigOption="option" :w="'100%'" :h="'300px'"></vueSignature>
+          <!-- <vueSignature ref="signature1" :sigOption="option"></vueSignature> -->
+          <!-- <button @click="save">Save</button> -->
+          <!-- <button @click="clear">Clear</button> -->
+          <b-button variant="secondary" class="text-center btnWidth btn-lg" @click="clear">Clear</b-button>
+          <!-- <button @click="undo">Undo</button> -->
+          <!-- <button @click="addWaterMark">addWaterMark</button> -->
+        </div>
 
         <div class="text-center mb-5">
           <b-button variant="primary" class="text-center btnWidth btn-lg">Sign And Send</b-button>
@@ -43,18 +61,38 @@
 <script>
 // import addNewTeamService from "./../services/addNewTeam.service.js";
 // import { sync, get } from "vuex-pathify";
+// import VuePDFViewer from 'vue-pdf-viewer'
 export default {
   name: "finalize",
-  computed: {  },
-  methods: {  }
+  data() {
+    return {
+      option: {
+        penColor: "rgb(0, 0, 0)",
+        backgroundColor: "rgb(255,255,255)"
+      }
+    };
+  },
+  components: {
+    // 'vue-pdf-viewer': VuePDFViewer
+  },
+  computed: {},
+  methods: {
+    editDetails() {
+      this.$router.push("/teamNew");
+    },
+    clear() {
+      var _this = this;
+      _this.$refs.signature.clear();
+    },
+  }
 };
 </script>
 
 <style>
 /* image div */
 .image {
-    height: 300px;
-    background: lightgray;
+  height: 300px;
+  background: lightgray;
 }
 /* image div ends */
 .bglightGray {

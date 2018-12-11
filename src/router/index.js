@@ -4,6 +4,7 @@ import Login from './../pages/Login'
 import TeamNew from './../pages/AddNew.vue'
 import Finalize from './../pages/Finalize.vue'
 import userInfo from './../pages/userInfo.vue'
+import Payment from './../pages/Payment.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
             path: '/userInfo',
             name: 'userInfo',
             component: userInfo
+        },
+        {
+            path: '/payment',
+            name: 'payment',
+            component: Payment
         }
     ]
 })

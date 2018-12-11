@@ -5,7 +5,7 @@ export default {
     const firestore = firebase.firestore();
     await firestore.collection('user')
       .doc(data.name)
-      .set(data)
+      .set(data,{merge: true})
       .then(resp => {
         router.push('/finalize')
       })
