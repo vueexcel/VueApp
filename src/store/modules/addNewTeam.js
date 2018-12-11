@@ -1,5 +1,6 @@
 import {make} from 'vuex-pathify'
 import addNewTeamService from './../../services/addNewTeam.service'
+import router from "./../../router"
 const state = {
     form: {
         name: null,
@@ -41,9 +42,15 @@ const mutations = make.mutations(state)
 const actions = {
     ...make.actions(state),
     async addNewFunction( { commit },payload) {
-        let response = await addNewTeamService.addNew(payload)
-        // eslint-disable-next-line
-        console.log(response, '555555555555555555555555')
+        await addNewTeamService.addNew(payload).then((response) => {
+            addNewTeamService.getUserDetail(payload.name).then((resp) => {
+                console.log(resp, '*****************')
+            })
+            // router.push("/finalize");
+        }).catch ((err) => {
+            // eslint-disable-next-line
+            console.log(err, '000000000000000000')
+        })
     }
 }
 export default {
