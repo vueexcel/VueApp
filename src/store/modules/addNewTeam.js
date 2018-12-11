@@ -1,4 +1,5 @@
 import {make} from 'vuex-pathify'
+import addNewTeamService from './../../services/addNewTeam.service'
 const state = {
     form: {
         name: null,
@@ -37,8 +38,15 @@ const state = {
     },
 }
 const mutations = make.mutations(state)
+const actions = {
+    ...make.actions(state),
+    addNewFunction( { commit },payload) {
+        addNewTeamService.addNew(payload).then()
+    }
+}
 export default {
     namespaced: true,
     state,
     mutations,
+    actions
 }

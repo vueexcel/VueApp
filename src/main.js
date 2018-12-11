@@ -6,7 +6,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import firebaseService from "./scripts/firebase.service";
 import store from './store/index'
 import router from './router'
-import store from './store/modules/store'
 
 
 Vue.use(BootstrapVue);

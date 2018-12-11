@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from './../pages/Login'
 import TeamNew from './../pages/AddNew.vue'
 import Finalize from './../pages/Finalize.vue'
+import userInfo from './../pages/userInfo.vue'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
             path: '/finalize',
             name: 'finalize',
             component: Finalize
+        },
+        {
+            path: '/userInfo',
+            name: 'userInfo',
+            component: userInfo
         }
     ]
 })

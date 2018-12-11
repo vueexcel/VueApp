@@ -4,7 +4,7 @@ export default {
     return firebase
       .auth()
       .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then((data) => {
+      .then(() => {
         return firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
