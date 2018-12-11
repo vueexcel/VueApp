@@ -1,13 +1,14 @@
 import firebase from 'firebase'
 import router from '../router';
 export default {
-  async addNew(data) {
+  addNew(data) {
     const firestore = firebase.firestore();
-    await firestore.collection('user')
+     firestore.collection('user')
       .doc(data.name)
       .set(data)
       .then(resp => {
-        router.push('/finalize')
+        // router.push('/finalize')
+        return resp
       })
       .catch((err) => {
         return err,

@@ -40,8 +40,10 @@ const state = {
 const mutations = make.mutations(state)
 const actions = {
     ...make.actions(state),
-    addNewFunction( { commit },payload) {
-        addNewTeamService.addNew(payload).then()
+    async addNewFunction( { commit },payload) {
+        let response = await addNewTeamService.addNew(payload)
+        // eslint-disable-next-line
+        console.log(response, '555555555555555555555555')
     }
 }
 export default {
