@@ -1,13 +1,14 @@
 import firebase from 'firebase'
+import config_ from './../config/config'
 export default {
     init() {
         var config = {
-            apiKey: "AIzaSyDOIGiCYJwwUCpie8Lhu9CipzB1_0fidss",
-            authDomain: "vueapp-caab7.firebaseapp.com",
-            databaseURL: "https://vueapp-caab7.firebaseio.com",
-            projectId: "vueapp-caab7",
-            storageBucket: "vueapp-caab7.appspot.com",
-            messagingSenderId: "467067472217"
+            apiKey: config_.apiKey,
+            authDomain: config_.authDomain,
+            databaseURL: config_.databaseURL,
+            projectId: config_.projectId,
+            storageBucket: config_.storageBucket,
+            messagingSenderId: config_.messagingSenderId
           };
           firebase.initializeApp(config);
     }
