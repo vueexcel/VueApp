@@ -14,89 +14,78 @@
     </b-nav>
     <!-- nav ends -->
     <!-- form -->
-    <b-container>
+        <b-container>
       <div>
         <p class="fontMedium">Payments</p>
       </div>
-      <!-- <b-form @submit.prevent="submitAddNewTeam">
-        <div class="d-flex border">
-          <span class="p-2 w-50">Name</span>
-          <b-input v-model="name" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border-left border-right">
-          <span class="p-2 w-50">Email ID</span>
-          <b-input v-model="email" type="email" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border">
-          <span class="p-2 w-50">Phone No</span>
-          <b-input v-model="phone" type="number" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border-left border-right">
-          <span class="p-2 w-50">Agreed Rate</span>
-          <b-input v-model="agreedRate" type="number" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border-left border-right border-top">
-          <span class="p-2 w-75">Number of Seats</span>
-          <b-input v-model="numberOfSeats" type="number" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border">
-          <span class="p-2 w-100">Plan</span>
-          <b-form-select v-model="selected" :options="options" class="custom-search-field"/>&nbsp;
-        </div>
+      <b-form @submit.prevent>
+        <div class="border">
 
-        <div class="d-flex border">
-          <span class="p-2 w-50">Company Name</span>
-          <b-input v-model="companyName" class="custom-search-field"/>
+
+          <b-btn v-b-toggle.collapse1 variant="link" class="btnWidth btn-lg">Online (GST Extra)</b-btn>
+            <b-collapse id="collapse1" class="mt-2">
+              <b-card>
+                <p class="card-text">Collapse contents Here</p>
+                <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
+                <b-collapse id=collapse1_inner class="mt-2">
+                  <b-card>Hello!</b-card>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+
         </div>
-        <div class="d-flex border-left border-right">
-          <span class="p-2 w-50">Pan</span>
-          <b-input v-model="pan" class="custom-search-field"/>
+        <div class="border-left border-right">
+          
+          <b-btn v-b-toggle.collapse2 variant="link" class="btnWidth btn-lg">Cash</b-btn>
+            <b-collapse id="collapse2" class="mt-2">
+              <b-card>
+                <p class="card-text">Collapse contents Here</p>
+                <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
+                <b-collapse id=collapse1_inner class="mt-2">
+                  <b-card>Hello!</b-card>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+
+
+
         </div>
-        <div class="d-flex border">
-          <span class="p-2 w-100">Aadhar Card/Id Proof No</span>
-          <b-input v-model="idProof" type="number" class="custom-search-field"/>
+        <div class="border">
+          
+
+          <b-btn v-b-toggle.collapse3 variant="link" class="btnWidth btn-lg">Cheque (GST Extra)</b-btn>
+            <b-collapse id="collapse3" class="mt-2">
+              <b-card>
+                <p class="card-text">Collapse contents Here</p>
+                <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
+                <b-collapse id=collapse1_inner class="mt-2">
+                  <b-card>Hello!</b-card>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+
+
         </div>
-        <div class="d-flex border-left border-right">
-          <span class="p-2 w-50">Address</span>
-          <b-input v-model="address" class="custom-search-field"/>
+        <div class="border-left border-right">
+         
+          <b-btn v-b-toggle.collapse4 variant="link" class="btnWidth btn-lg">Wallet</b-btn>
+            <b-collapse id="collapse4" class="mt-2">
+              <b-card>
+                <p class="card-text">Collapse contents Here</p>
+                <b-btn v-b-toggle.collapse1_inner size="sm">Toggle Inner Collapse</b-btn>
+                <b-collapse id=collapse1_inner class="mt-2">
+                  <b-card>Hello!</b-card>
+                </b-collapse>
+              </b-card>
+            </b-collapse>
+
+
+
         </div>
-        <div class="d-flex border">
-          <span class="p-2 w-100">Date of Commencemet</span>
-          <b-input v-model="dateOfCommencemet" type="date" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border-left border-right">
-          <span class="p-2 w-50">Duration</span>
-          <b-input v-model="duration" type="number" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border">
-          <span class="p-2 w-50">Seats Assigned</span>
-          <b-input v-model="seatsAssigned" type="number" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border-left border-right">
-          <span class="p-2 w-50">Working Hours</span>
-          <b-input v-model="workingHours" type="number" class="custom-search-field"/>
-        </div>
-        <div class="d-flex border">
-          <span class="p-2 w-75">Existing Members</span>
-          <label class="switch">
-            <input v-model="existingMember" type="checkbox">
-            <span class="slider round"></span>
-          </label>
-        </div>&nbsp;
         <div class="text-center">
-          <b-button variant="primary" class="text-center btnWidth btn-lg" type="submit">Submit</b-button>
+          <b-button variant="primary" class="text-center btnWidth btn-lg" type="submit">Pay</b-button>
         </div>
-      </b-form> -->
-    <b-list-group class="list">
-        <b-list-group-item button>Button item</b-list-group-item>
-        <b-list-group-item button>I am a button</b-list-group-item>
-        <b-list-group-item button>Disabled button</b-list-group-item>
-        <b-list-group-item button>This is a button too</b-list-group-item>
-    </b-list-group>&nbsp;
-        <div class="text-center">
-          <b-button variant="primary" class="text-center btnWidth btn-lg" type="submit">Tap me!</b-button>
-        </div>
-        <br/>
+      </b-form>
     </b-container>
     <!-- form ends -->
   </div>
@@ -109,7 +98,36 @@ name: 'paymentComponent'
 </script>
 
 <style>
-.list:hover{
-   cursor: pointer; 
+.bglightGray {
+  background: #f8f8f8;
+}
+.fontSmall {
+  font-size: 14px;
+}
+.fontMedium {
+  font-size: 25px;
+  font-weight: bold;
+}
+.btnWidth {
+  width: 100%;
+}
+.mobileView {
+  width: 425px;
+  height: 100%;
+  box-shadow: 5px 10px 18px #888888;
+}
+.adminFontWeight {
+  font-weight: 600;
+}
+/* for input fields */
+.custom-search-field:focus,
+.custom-search-field {
+  border: none;
+  color: #495057;
+  background-color: #ffffff;
+  border-color: rgba(248, 249, 250, 0);
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0);
 }
 </style>
